@@ -1,10 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
-import { firestore } from 'fbInstance';
-import { addDoc, collection } from 'firebase/firestore';
+import { cogowitCollection, firestorage } from 'fbInstance';
+import { addDoc, onSnapshot } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadString } from '@firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
+import Cogowit from 'components/Cogowit';
 
-function Home() {
+function Home({ userObj }) {
   const [cogowit, setCogowit] = useState('');
+  const [cogowits, setCogowits] = useState([]);
+  const [attachment, setAttachment] = useState();
+
+  useEffect(() => {
+    onSnapshot(cogowitCollection, {
+      next: (snapshot) => {
+        const cogowitArray = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setCogowits(cogowitArray);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }, []);
 
   const handleCogowit = (e) => {
     const { value } = e.target;
@@ -13,17 +33,48 @@ function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const cogowitCol = collection(firestore, '/cogowit');
 
     try {
-      await addDoc(cogowitCol, {
-        cogowit,
+      let attachmentUrl = '';
+      if (attachment !== null) {
+        const attachmentRef = ref(firestorage, `${userObj.uid}/${uuidv4()}`);
+        const uploadResult = await uploadString(
+          attachmentRef,
+          attachment,
+          'data_url'
+        );
+        attachmentUrl = await getDownloadURL(uploadResult.ref);
+      }
+
+      const cogowitData = {
+        text: cogowit,
         createdAt: new Date(),
-      });
+        creatorId: userObj.uid,
+        attachmentUrl,
+      };
+
+      await addDoc(cogowitCollection, cogowitData);
       setCogowit('');
+      setAttachment(null);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const fileInput = useRef();
+
+  const handleFileChange = (e) => {
+    const { files } = e.target;
+    const reader = new FileReader();
+    reader.onloadend = (finishedEvent) => {
+      setAttachment(finishedEvent.currentTarget.result);
+    };
+    reader.readAsDataURL(files[0]);
+  };
+
+  const handleClearAttachment = () => {
+    setAttachment(null);
+    fileInput.current.value = null;
   };
 
   return (
@@ -36,8 +87,31 @@ function Home() {
           value={cogowit}
           onChange={handleCogowit}
         />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          ref={fileInput}
+        />
         <input type="submit" value="Cogowit!" />
+        {attachment && (
+          <div>
+            <img src={attachment} width="50px" height="50px" />
+            <button onClick={handleClearAttachment}>Clear</button>
+          </div>
+        )}
       </form>
+      <div>
+        {cogowits.map((cogowit) => {
+          return (
+            <Cogowit
+              key={cogowit.id}
+              cogowitObj={cogowit}
+              isOwner={cogowit.creatorId === userObj.uid}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
