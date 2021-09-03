@@ -10,6 +10,7 @@ function Home({ userObj }) {
   const [cogowit, setCogowit] = useState('');
   const [cogowits, setCogowits] = useState([]);
   const [attachment, setAttachment] = useState();
+  const fileInput = useRef();
 
   useEffect(() => {
     onSnapshot(cogowitCollection, {
@@ -54,22 +55,25 @@ function Home({ userObj }) {
       };
 
       await addDoc(cogowitCollection, cogowitData);
+
       setCogowit('');
       setAttachment(null);
+      fileInput.current.value = null;
     } catch (error) {
       console.log(error);
     }
   };
 
-  const fileInput = useRef();
-
   const handleFileChange = (e) => {
     const { files } = e.target;
     const reader = new FileReader();
     reader.onloadend = (finishedEvent) => {
+      console.log(finishedEvent);
       setAttachment(finishedEvent.currentTarget.result);
     };
-    reader.readAsDataURL(files[0]);
+    if (files) {
+      reader.readAsDataURL(files[0]);
+    }
   };
 
   const handleClearAttachment = () => {

@@ -2,7 +2,7 @@ import { auth } from 'fbInstance';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-function Profile() {
+function Profile({ userObj }) {
   const history = useHistory();
   const handleLogOutCLick = () => {
     auth.signOut();
