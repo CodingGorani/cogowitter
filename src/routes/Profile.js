@@ -1,16 +1,15 @@
-import { auth } from 'fbInstance';
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
-function Profile({ userObj }) {
-  const history = useHistory();
-  const handleLogOutCLick = () => {
-    auth.signOut();
-    history.push('/');
-  };
+import ProfileForm from 'components/ProfileForm';
+import LogOutButton from 'components/LogOutButton';
+import MyCogowits from 'components/MyCogowits';
+
+function Profile({ refreshUser, userObj }) {
   return (
     <>
-      <button onClick={handleLogOutCLick}>Log Out</button>
+      <ProfileForm refreshUser={refreshUser} userObj={userObj} />
+      <MyCogowits userObj={userObj} />
+      <LogOutButton />
     </>
   );
 }

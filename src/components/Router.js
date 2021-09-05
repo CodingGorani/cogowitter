@@ -5,10 +5,10 @@ import Profile from 'routes/Profile';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Nav from 'components/Nav';
 
-function AppRouter({ isLoggedIn, userObj }) {
+function AppRouter({ refreshUser, isLoggedIn, userObj }) {
   return (
     <Router>
-      {isLoggedIn && <Nav />}
+      {isLoggedIn && <Nav userObj={userObj} />}
       <Switch>
         {isLoggedIn ? (
           <>
@@ -16,7 +16,7 @@ function AppRouter({ isLoggedIn, userObj }) {
               <Home userObj={userObj} />
             </Route>
             <Route exact path="/profile">
-              <Profile userObj={userObj} />
+              <Profile refreshUser={refreshUser} userObj={userObj} />
             </Route>
           </>
         ) : (
