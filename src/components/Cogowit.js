@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { cogowitCollection, firestorage } from 'fbInstance';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
+import { Button } from './atoms/Button';
+import { Container } from './atoms/Container';
 
 function Cogowit({ cogowitObj, isOwner }) {
   const [editMode, setEditMode] = useState(false);
@@ -45,7 +47,7 @@ function Cogowit({ cogowitObj, isOwner }) {
   };
 
   return (
-    <div>
+    <>
       {cogowitObj.attachmentUrl !== '' && (
         <img src={cogowitObj.attachmentUrl} width="50px" height="50px" />
       )}
@@ -61,20 +63,20 @@ function Cogowit({ cogowitObj, isOwner }) {
             />
             <input type="submit" value="Update Cogowit" />
           </form>
-          <button onClick={handleEditToggle}>Cancel</button>
+          <Button onClick={handleEditToggle}>Cancel</Button>
         </>
       ) : (
         <>
           <h4>{cogowitObj.text}</h4>
           {isOwner && (
             <>
-              <button onClick={handleDeleteClick}>Delete Cogowit</button>
-              <button onClick={handleEditToggle}>Edit Cogowit</button>
+              <Button onClick={handleDeleteClick}>Delete Cogowit</Button>
+              <Button onClick={handleEditToggle}>Edit Cogowit</Button>
             </>
           )}
         </>
       )}
-    </div>
+    </>
   );
 }
 

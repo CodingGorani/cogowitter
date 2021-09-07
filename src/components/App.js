@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import AppRouter from './Router';
 import { auth } from '../fbInstance';
 import { onAuthStateChanged } from 'firebase/auth';
+import Styled from './Button';
 
 function App() {
   const [init, setInit] = useState(false);
@@ -39,11 +40,14 @@ function App() {
   return (
     <>
       {init ? (
-        <AppRouter
-          refreshUser={refreshUser}
-          isLoggedIn={isLoggedIn}
-          userObj={userObj}
-        />
+        <>
+          <Styled />
+          <AppRouter
+            refreshUser={refreshUser}
+            isLoggedIn={isLoggedIn}
+            userObj={userObj}
+          />
+        </>
       ) : (
         'Initializing...'
       )}

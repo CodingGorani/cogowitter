@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-
 import ProfileForm from 'components/ProfileForm';
 import LogOutButton from 'components/LogOutButton';
 import MyCogowits from 'components/MyCogowits';
