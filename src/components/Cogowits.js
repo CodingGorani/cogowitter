@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { cogowitCollection } from 'fbInstance';
 import { onSnapshot } from 'firebase/firestore';
 import Cogowit from './Cogowit';
+import { Container, FlexBox } from './atoms/Container';
 
 function Cogowits({ userObj }) {
   const [cogowits, setCogowits] = useState([]);
@@ -26,17 +27,18 @@ function Cogowits({ userObj }) {
   }, []);
 
   return (
-    <div>
+    <FlexBox wrapper>
       {cogowits.map((cogowit) => {
         return (
           <Cogowit
             key={cogowit.id}
             cogowitObj={cogowit}
             isOwner={cogowit.creatorId === userObj.uid}
+            userObj={userObj}
           />
         );
       })}
-    </div>
+    </FlexBox>
   );
 }
 

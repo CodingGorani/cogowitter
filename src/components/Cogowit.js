@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import { cogowitCollection, firestorage } from 'fbInstance';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 import { Button } from './atoms/Button';
-import { Container } from './atoms/Container';
+import { FlexBox } from './atoms/Container';
+import CogowitEdit from './CogowitEdit';
+import { Span } from './atoms/Typo';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
-function Cogowit({ cogowitObj, isOwner }) {
-  const [editMode, setEditMode] = useState(false);
-  const [editText, setEditText] = useState(cogowitObj.text);
+function Cogowit({ cogowitObj, isOwner, userObj }) {
+  const [isEdit, setIsEdit] = useState(false);
 
   const handleDeleteClick = async () => {
     const { id, attachmentUrl } = cogowitObj;
@@ -26,57 +29,37 @@ function Cogowit({ cogowitObj, isOwner }) {
     }
   };
 
-  const handleEditToggle = () => {
-    setEditMode((prev) => !prev);
-  };
-
-  const handleEditClick = async () => {
-    try {
-      await updateDoc(doc(cogowitCollection, '/', cogowitObj.id), {
-        text: editText,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    setEditMode(false);
-  };
-
-  const handleEditText = (e) => {
-    const { value } = e.target;
-    setEditText(value);
+  const handleIsEdit = () => {
+    setIsEdit((prev) => !prev);
   };
 
   return (
-    <>
+    <FlexBox middle direction="column">
       {cogowitObj.attachmentUrl !== '' && (
         <img src={cogowitObj.attachmentUrl} width="50px" height="50px" />
       )}
-      {editMode ? (
-        <>
-          <form onSubmit={handleEditClick}>
-            <input
-              type="text"
-              value={editText}
-              placeholder="Edit your Cogowit"
-              onChange={handleEditText}
-              maxLength={120}
-            />
-            <input type="submit" value="Update Cogowit" />
-          </form>
-          <Button onClick={handleEditToggle}>Cancel</Button>
-        </>
+      {isEdit ? (
+        <CogowitEdit cogowitObj={cogowitObj} handleIsEdit={handleIsEdit} />
       ) : (
         <>
-          <h4>{cogowitObj.text}</h4>
-          {isOwner && (
-            <>
-              <Button onClick={handleDeleteClick}>Delete Cogowit</Button>
-              <Button onClick={handleEditToggle}>Edit Cogowit</Button>
-            </>
+          {isOwner ? (
+            <FlexBox right>
+              <Button onClick={handleDeleteClick}>
+                <FontAwesomeIcon icon={faTrash} />
+              </Button>
+              <Button onClick={handleIsEdit}>
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </Button>
+            </FlexBox>
+          ) : (
+            <Span align="right">by {userObj.displayName}</Span>
           )}
+          <Span align="left" bold>
+            {cogowitObj.text}
+          </Span>
         </>
       )}
-    </>
+    </FlexBox>
   );
 }
 
