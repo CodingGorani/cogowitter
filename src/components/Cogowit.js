@@ -9,8 +9,9 @@ import { Span } from './atoms/Typo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
-function Cogowit({ cogowitObj, isOwner, userObj }) {
+function Cogowit({ cogowitObj, isOwner }) {
   const [isEdit, setIsEdit] = useState(false);
+  console.log('코고윗 오브제', cogowitObj);
 
   const handleDeleteClick = async () => {
     const { id, attachmentUrl } = cogowitObj;
@@ -35,24 +36,27 @@ function Cogowit({ cogowitObj, isOwner, userObj }) {
 
   return (
     <FlexBox middle direction="column">
-      {cogowitObj.attachmentUrl !== '' && (
-        <img src={cogowitObj.attachmentUrl} width="50px" height="50px" />
+      {!isOwner && (
+        <Span nameTag align="right">
+          by {cogowitObj.creator}
+        </Span>
       )}
       {isEdit ? (
         <CogowitEdit cogowitObj={cogowitObj} handleIsEdit={handleIsEdit} />
       ) : (
         <>
-          {isOwner ? (
+          {isOwner && (
             <FlexBox right>
-              <Button onClick={handleDeleteClick}>
+              <Button noShadow onClick={handleDeleteClick}>
                 <FontAwesomeIcon icon={faTrash} />
               </Button>
-              <Button onClick={handleIsEdit}>
+              <Button noShadow onClick={handleIsEdit}>
                 <FontAwesomeIcon icon={faPencilAlt} />
               </Button>
             </FlexBox>
-          ) : (
-            <Span align="right">by {userObj.displayName}</Span>
+          )}
+          {cogowitObj.attachmentUrl !== '' && (
+            <img src={cogowitObj.attachmentUrl} width="100%" />
           )}
           <Span align="left" bold>
             {cogowitObj.text}

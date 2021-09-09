@@ -33,7 +33,7 @@ function CogowitEdit({ cogowitObj, handleIsEdit }) {
           onChange={handleEditText}
           maxLength={120}
         />
-        <Input type="submit" value="Update Cogowit" />
+        <Button as="input" type="submit" value="Update Cogowit" />
       </form>
       <Button onClick={handleIsEdit}>Cancel</Button>
     </>

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { updateProfile } from '@firebase/auth';
 import { auth } from 'fbInstance';
+import { Input } from './atoms/Input';
+import { Button } from './atoms/Button';
+import { FlexBox } from './atoms/Container';
 
 function ProfileForm({ refreshUser, userObj }) {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
@@ -22,15 +25,15 @@ function ProfileForm({ refreshUser, userObj }) {
     setNewDisplayName(value);
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input
+    <FlexBox as="form" onSubmit={handleSubmit}>
+      <Input
         type="text"
-        placeholder="Display name"
+        placeholder="Display Name"
         value={newDisplayName}
         onChange={handleNameChange}
       />
-      <input type="submit" value="Update Profile" />
-    </form>
+      <Button as="input" type="submit" value="Update Profile" />
+    </FlexBox>
   );
 }
 

@@ -1,5 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { auth } from 'fbInstance';
+import { Button } from './atoms/Button';
 
 function LogOutButton() {
   const history = useHistory();
@@ -8,7 +9,7 @@ function LogOutButton() {
     auth.signOut();
     history.push('/');
   };
-  return <button onClick={handleLogOutCLick}>Log Out</button>;
+  return <Button onClick={handleLogOutCLick}>Log Out</Button>;
 }
 
 export default LogOutButton;

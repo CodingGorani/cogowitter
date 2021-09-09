@@ -1,19 +1,17 @@
 import styled, { css } from 'styled-components';
+import { theme } from './Theme';
 
 export const Container = styled.div`
   ${(props) =>
     props.background &&
     css`
-      height: 100vh;
+      height: fit-content;
     `}
 `;
 
 export const FlexBox = styled.div`
   display: flex;
   flex: auto;
-  border-width: 1px;
-  border-style: solid;
-  border-color: ${(props) => props.borderColor || 'black'};
 
   ${(props) =>
     props.wrapper &&
@@ -25,6 +23,12 @@ export const FlexBox = styled.div`
   ${(props) =>
     props.middle &&
     css`
+      background: white;
+      border-width: 0px;
+      box-shadow: ${theme.shadow};
+      border-radius: 1em;
+      margin: 0.5em;
+      padding: 1em 0.5em;
       align-self: center;
       width: 50%;
       flex-direction: ${props.direction || 'row'};
@@ -34,5 +38,6 @@ export const FlexBox = styled.div`
     props.right &&
     css`
       justify-content: right;
+      flex-direction: ${props.direction || 'row'};
     `}
 `;

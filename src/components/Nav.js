@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from './atoms/Button';
+import { FlexBox } from './atoms/Container';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAddressBook, faHome } from '@fortawesome/free-solid-svg-icons';
 
 function Nav({ userObj }) {
   return (
     <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/profile">{userObj.displayName}님의 프로필</Link>
-        </li>
-      </ul>
+      <FlexBox right as="ul">
+        <Link to="/">
+          <Button noShadow list as="li">
+            <FontAwesomeIcon icon={faHome} />
+          </Button>
+        </Link>
+        <Link to="/profile">
+          <Button noShadow list as="li">
+            <FontAwesomeIcon icon={faAddressBook} />
+          </Button>
+        </Link>
+      </FlexBox>
     </nav>
   );
 }
