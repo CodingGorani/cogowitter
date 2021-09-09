@@ -17,3 +17,13 @@ export const Span = styled.span`
       font-weight: bold;
     `}
 `;
+
+export const H1 = styled.h1`
+  text-align: center;
+  color: skyblue;
+`;
+
+export const H2 = styled.h2`
+  text-align: center;
+  color: skyblue;
+`;

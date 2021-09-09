@@ -4,13 +4,22 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
+import { Input } from './atoms/Input';
+import { Button } from './atoms/Button';
+import { FlexBox } from './atoms/Container';
 
-function SignForm({ newAccount }) {
+function SignForm() {
+  const [newAccount, setNewAccount] = useState(true);
   const [authInfo, setAuthInfo] = useState({
     email: '',
     pwd: '',
   });
   const [error, setError] = useState('');
+
+  const toggleAccount = (e) => {
+    e.preventDefault();
+    setNewAccount((prev) => !prev);
+  };
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -40,8 +49,8 @@ function SignForm({ newAccount }) {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input
+    <FlexBox wrapper as="form" onSubmit={handleSubmit}>
+      <Input
         name="email"
         type="email"
         placeholder="Email"
@@ -49,7 +58,7 @@ function SignForm({ newAccount }) {
         value={authInfo.email}
         onChange={handleChange}
       />
-      <input
+      <Input
         name="pwd"
         type="password"
         placeholder="Password"
@@ -57,9 +66,17 @@ function SignForm({ newAccount }) {
         value={authInfo.pwd}
         onChange={handleChange}
       />
-      <input type="submit" value={newAccount ? 'Create Account' : 'Log In'} />
+      <Button
+        primary
+        as="input"
+        type="submit"
+        value={newAccount ? 'Create Account' : 'Log In'}
+      />
       {error}
-    </form>
+      <Button noShadow onClick={toggleAccount}>
+        {newAccount ? 'Sign In' : 'Create Account'}
+      </Button>
+    </FlexBox>
   );
 }
 

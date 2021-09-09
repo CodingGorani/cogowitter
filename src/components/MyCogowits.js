@@ -3,6 +3,7 @@ import { cogowitCollection } from 'fbInstance';
 import { where, query, onSnapshot, orderBy } from 'firebase/firestore';
 import Cogowit from 'components/Cogowit';
 import { FlexBox } from './atoms/Container';
+import { H2 } from './atoms/Typo';
 
 function MyCogowits({ userObj }) {
   const [myCogowits, setMyCogowits] = useState([]);
@@ -34,6 +35,7 @@ function MyCogowits({ userObj }) {
 
   return (
     <FlexBox wrapper>
+      <H2>My Cogowits</H2>
       {myCogowits.map((cogowit) => (
         <Cogowit key={cogowit.id} cogowitObj={cogowit} isOwner={true} />
       ))}

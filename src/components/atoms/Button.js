@@ -16,9 +16,10 @@ export const Button = styled.button`
   border-radius: 1em;
   border-style: none;
   color: black;
-  margin: 0 1em;
+  margin: 0.5em 3em;
   padding: 0.5em 1em;
   box-shadow: ${theme.shadow};
+  height: 2.5em;
 
   &:hover {
     transition: all 0.3s ease;
@@ -46,5 +47,12 @@ export const Button = styled.button`
     props.list &&
     css`
       list-style: none;
+    `}
+
+  ${(props) =>
+    props.small &&
+    css`
+      margin: 0;
+      height: fit-content;
     `}
 `;

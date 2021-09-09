@@ -3,7 +3,7 @@ import { cogowitCollection, firestorage } from 'fbInstance';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 import { Button } from './atoms/Button';
-import { FlexBox } from './atoms/Container';
+import { FlexBox, Image } from './atoms/Container';
 import CogowitEdit from './CogowitEdit';
 import { Span } from './atoms/Typo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -47,16 +47,16 @@ function Cogowit({ cogowitObj, isOwner }) {
         <>
           {isOwner && (
             <FlexBox right>
-              <Button noShadow onClick={handleDeleteClick}>
+              <Button noShadow small onClick={handleDeleteClick}>
                 <FontAwesomeIcon icon={faTrash} />
               </Button>
-              <Button noShadow onClick={handleIsEdit}>
+              <Button noShadow small onClick={handleIsEdit}>
                 <FontAwesomeIcon icon={faPencilAlt} />
               </Button>
             </FlexBox>
           )}
           {cogowitObj.attachmentUrl !== '' && (
-            <img src={cogowitObj.attachmentUrl} width="100%" />
+            <Image src={cogowitObj.attachmentUrl} />
           )}
           <Span align="left" bold>
             {cogowitObj.text}

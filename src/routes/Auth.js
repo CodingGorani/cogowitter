@@ -2,23 +2,18 @@ import { useState } from 'react';
 
 import SignForm from 'components/SignForm';
 import SocialSignIn from 'components/SocialSignIn';
+import { FlexBox } from 'components/atoms/Container';
+import { H1 } from 'components/atoms/Typo';
 
 function Auth() {
-  const [newAccount, setNewAccount] = useState(true);
-
-  const toggleAccount = () => {
-    setNewAccount((prev) => !prev);
-  };
-
   return (
-    <div>
-      <SignForm newAccount={newAccount} />
-      <span onClick={toggleAccount}>
-        {newAccount ? 'Sign In' : 'Create Account'}
-      </span>
-      <SocialSignIn />
-      Auth
-    </div>
+    <FlexBox wrapper>
+      <FlexBox middle direction="column">
+        <H1>Auth</H1>
+        <SignForm />
+        <SocialSignIn />
+      </FlexBox>
+    </FlexBox>
   );
 }
 

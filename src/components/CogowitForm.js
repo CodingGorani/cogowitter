@@ -85,7 +85,7 @@ function CogowitForm({ userObj }) {
           onChange={handleFileChange}
           ref={fileInput}
         />
-        <Button as="input" type="submit" value="Cogowit!" />
+        <Button primary as="input" type="submit" value="Cogowit!" />
         {attachment && (
           <div>
             <img src={attachment} width="50px" height="50px" />

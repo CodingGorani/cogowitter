@@ -9,12 +9,12 @@ function Nav({ userObj }) {
     <nav>
       <FlexBox right as="ul">
         <Link to="/">
-          <Button noShadow list as="li">
+          <Button noShadow small list as="li">
             <FontAwesomeIcon icon={faHome} />
           </Button>
         </Link>
         <Link to="/profile">
-          <Button noShadow list as="li">
+          <Button noShadow small list as="li">
             <FontAwesomeIcon icon={faAddressBook} />
           </Button>
         </Link>

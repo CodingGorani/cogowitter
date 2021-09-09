@@ -5,6 +5,8 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from 'firebase/auth';
+import { FlexBox } from './atoms/Container';
+import { Button } from './atoms/Button';
 
 function SocialSignIn() {
   const handleSocialClick = async (e) => {
@@ -22,14 +24,14 @@ function SocialSignIn() {
     }
   };
   return (
-    <div>
-      <button name="google" onClick={handleSocialClick}>
+    <FlexBox wrapper>
+      <Button name="google" onClick={handleSocialClick}>
         Continue with Google
-      </button>
-      <button name="github" onClick={handleSocialClick}>
+      </Button>
+      <Button name="github" onClick={handleSocialClick}>
         Continue with Github
-      </button>
-    </div>
+      </Button>
+    </FlexBox>
   );
 }
 
