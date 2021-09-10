@@ -8,17 +8,34 @@ export const Container = styled.div`
       min-height: 100vh;
       height: fit-content;
     `}
-`;
-
-export const FlexBox = styled.div`
-  display: flex;
-  flex: auto;
 
   ${(props) =>
     props.wrapper &&
     css`
-      flex-direction: column;
       width: 100%;
+    `}
+`;
+
+export const FlexBox = styled.div`
+  display: flex;
+
+  ${(props) =>
+    props.wrapper &&
+    css`
+      flex-direction: ${props.direction || 'column'};
+      width: 100%;
+    `}
+
+  ${(props) =>
+    props.styled &&
+    css`
+      background: white;
+      border-width: 0px;
+      box-shadow: ${theme.shadow};
+      border-radius: 1em;
+      margin: 0.5em;
+      padding: 1em 2em;
+      flex-direction: ${props.direction || 'column'};
     `}
 
   ${(props) =>
@@ -29,7 +46,7 @@ export const FlexBox = styled.div`
       box-shadow: ${theme.shadow};
       border-radius: 1em;
       margin: 0.5em;
-      padding: 1em 0.5em;
+      padding: 1em 2em;
       align-self: center;
       width: 50%;
       max-width: 650px;
@@ -41,6 +58,13 @@ export const FlexBox = styled.div`
     props.right &&
     css`
       justify-content: right;
+      flex-direction: ${props.direction || 'row'};
+    `}
+
+  ${(props) =>
+    props.spaceBetween &&
+    css`
+      justify-content: space-between;
       flex-direction: ${props.direction || 'row'};
     `}
 `;

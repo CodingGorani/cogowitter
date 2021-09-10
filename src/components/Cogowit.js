@@ -1,6 +1,6 @@
-import React, { useReducer, useState } from 'react';
+import { useState } from 'react';
 import { cogowitCollection, firestorage } from 'fbInstance';
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 import { Button } from './atoms/Button';
 import { FlexBox, Image } from './atoms/Container';
@@ -8,10 +8,12 @@ import CogowitEdit from './CogowitEdit';
 import { Span } from './atoms/Typo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import CommentsForm from './CommentsForm';
+import Comments from './Comments';
+import Like from './Like';
 
-function Cogowit({ cogowitObj, isOwner }) {
+function Cogowit({ userObj, cogowitObj, isOwner }) {
   const [isEdit, setIsEdit] = useState(false);
-  console.log('코고윗 오브제', cogowitObj);
 
   const handleDeleteClick = async () => {
     const { id, attachmentUrl } = cogowitObj;
@@ -61,6 +63,13 @@ function Cogowit({ cogowitObj, isOwner }) {
           <Span align="left" bold>
             {cogowitObj.text}
           </Span>
+        </>
+      )}
+      {!isEdit && (
+        <>
+          <Like userObj={userObj} cogowitObj={cogowitObj} />
+          <CommentsForm userObj={userObj} cogowitObj={cogowitObj} />
+          <Comments cogowitObj={cogowitObj} />
         </>
       )}
     </FlexBox>

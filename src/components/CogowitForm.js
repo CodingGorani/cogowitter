@@ -37,6 +37,8 @@ function CogowitForm({ userObj }) {
         createdAt: new Date(),
         creatorId: userObj.uid,
         creator: userObj.displayName,
+        like: 0,
+        liker: {},
         attachmentUrl,
       };
 

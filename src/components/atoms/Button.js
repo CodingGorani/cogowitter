@@ -1,17 +1,7 @@
 import styled, { css, keyframes } from 'styled-components';
 import { theme } from './Theme';
 
-const fadeIn = keyframes`
-  from {
-    padding: 0.5em 100%;
-  }
-  to {
-    padding: 0.5em 1em;
-  }
-`;
-
 export const Button = styled.button`
-  text-overflow: clip;
   background: transparent;
   border-radius: 1em;
   border-style: none;
@@ -23,7 +13,7 @@ export const Button = styled.button`
 
   &:hover {
     transition: all 0.3s ease;
-    background: skyblue;
+    background: ${theme.mainColor};
     color: white;
   }
 
@@ -36,7 +26,7 @@ export const Button = styled.button`
   ${(props) =>
     props.primary &&
     css`
-      background: skyblue;
+      background: ${theme.mainColor};
       color: white;
       &:hover {
         background: purple;
@@ -54,5 +44,15 @@ export const Button = styled.button`
     css`
       margin: 0;
       height: fit-content;
+    `}
+
+  ${(props) =>
+    props.relative &&
+    css`
+      margin: 0;
+      padding: 0;
+      position: relative;
+      top: ${props.top || '0'};
+      left: ${props.left || '0'};
     `}
 `;

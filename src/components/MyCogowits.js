@@ -37,7 +37,12 @@ function MyCogowits({ userObj }) {
     <FlexBox wrapper>
       <H2>My Cogowits</H2>
       {myCogowits.map((cogowit) => (
-        <Cogowit key={cogowit.id} cogowitObj={cogowit} isOwner={true} />
+        <Cogowit
+          userObj={userObj}
+          key={cogowit.id}
+          cogowitObj={cogowit}
+          isOwner={true}
+        />
       ))}
     </FlexBox>
   );

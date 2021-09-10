@@ -12,4 +12,11 @@ export const Input = styled.input`
     outline: none;
     border: 1px solid rgba(0, 77, 187, 1);
   }
+
+  ${(props) =>
+    props.withButton &&
+    css`
+      width: 100%;
+      margin: 0;
+    `}
 `;
