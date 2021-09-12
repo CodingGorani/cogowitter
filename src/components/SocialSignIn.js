@@ -7,6 +7,7 @@ import {
 } from 'firebase/auth';
 import { FlexBox } from './atoms/Container';
 import { Button } from './atoms/Button';
+import addUserInfo from 'utils';
 
 function SocialSignIn() {
   const handleSocialClick = async (e) => {
@@ -18,7 +19,8 @@ function SocialSignIn() {
       } else if (name === 'github') {
         provider = new GithubAuthProvider();
       }
-      await signInWithPopup(auth, provider);
+      const data = await signInWithPopup(auth, provider);
+      addUserInfo(data);
     } catch (error) {
       console.log(error);
     }

@@ -7,6 +7,7 @@ import {
 import { Input } from './atoms/Input';
 import { Button } from './atoms/Button';
 import { FlexBox } from './atoms/Container';
+import addUserInfo from 'utils';
 
 function SignForm() {
   const [newAccount, setNewAccount] = useState(true);
@@ -42,7 +43,7 @@ function SignForm() {
         //log in
         data = await signInWithEmailAndPassword(auth, email, pwd);
       }
-      console.log(data);
+      addUserInfo(data);
     } catch (error) {
       console.log(error.message);
       setError(error.message);

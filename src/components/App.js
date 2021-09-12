@@ -12,6 +12,7 @@ function App() {
   useEffect(() => {
     const authChangeListener = onAuthStateChanged(auth, (user) => {
       if (user) {
+        console.log('user', user);
         setIsLoggedIn(true);
         setUserObj({
           uid: user.uid,
@@ -30,7 +31,6 @@ function App() {
 
   const refreshUser = () => {
     const user = auth.currentUser;
-    console.log('user확인', user);
     setUserObj({
       uid: user.uid,
       displayName: user.displayName,

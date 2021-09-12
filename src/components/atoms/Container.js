@@ -13,6 +13,7 @@ export const Container = styled.div`
     props.wrapper &&
     css`
       width: 100%;
+      min-height: 100vh;
     `}
 `;
 
