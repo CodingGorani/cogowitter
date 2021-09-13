@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 import { auth } from 'fbInstance';
 import {
   createUserWithEmailAndPassword,
@@ -16,6 +17,7 @@ function SignForm() {
     pwd: '',
   });
   const [error, setError] = useState('');
+  const history = useHistory();
 
   const toggleAccount = (e) => {
     e.preventDefault();
@@ -39,6 +41,7 @@ function SignForm() {
       if (newAccount) {
         //create account
         data = await createUserWithEmailAndPassword(auth, email, pwd);
+        history.push('/profile');
       } else {
         //log in
         data = await signInWithEmailAndPassword(auth, email, pwd);
