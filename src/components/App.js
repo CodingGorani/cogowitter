@@ -17,6 +17,7 @@ function App() {
         setUserObj({
           uid: user.uid,
           displayName: user.displayName,
+          photoURL: user.photoURL,
         });
       } else {
         setIsLoggedIn(false);

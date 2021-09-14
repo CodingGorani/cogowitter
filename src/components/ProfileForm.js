@@ -6,10 +6,12 @@ import { Button } from './atoms/Button';
 import { FlexBox } from './atoms/Container';
 import { where, query, onSnapshot } from 'firebase/firestore';
 import { useEffect } from 'react/cjs/react.development';
-import { collection } from '@firebase/firestore';
+import { collection, doc, updateDoc } from '@firebase/firestore';
 
 function ProfileForm({ refreshUser, userObj }) {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+  const [userInfoId, setUserInfoId] = useState('');
+  const [profileFoto, setProfileFoto] = useState('');
   const [attachment, setAttachment] = useState('');
   const fileInput = useRef();
 
@@ -19,7 +21,12 @@ function ProfileForm({ refreshUser, userObj }) {
       {
         next: (snapshot) => {
           snapshot.docs.map((doc) => {
-            setAttachment(doc.data().photoURL);
+            setUserInfoId(doc.id);
+            if (doc.photoURL) {
+              setProfileFoto(doc.photoURL);
+            } else {
+              setProfileFoto(userObj.photoURL);
+            }
           });
         },
         error: (error) => {
@@ -37,6 +44,10 @@ function ProfileForm({ refreshUser, userObj }) {
     if (userObj.displayName !== newDisplayName || attachment) {
       try {
         await updateProfile(auth.currentUser, {
+          displayName: newDisplayName,
+          photoURL: attachment,
+        });
+        await updateDoc(doc(collection(firestore, '/user'), '/', userInfoId), {
           displayName: newDisplayName,
           photoURL: attachment,
         });
@@ -72,6 +83,7 @@ function ProfileForm({ refreshUser, userObj }) {
 
   return (
     <FlexBox>
+      {profileFoto && <img src={profileFoto} width="50px" height="50px" />}
       <form onSubmit={handleSubmit}>
         <Input
           type="text"
@@ -79,9 +91,20 @@ function ProfileForm({ refreshUser, userObj }) {
           value={newDisplayName}
           onChange={handleNameChange}
         />
-        <Input type="file" accept="image/*" onChange={handleFileChange} />
+        <Input
+          type="file"
+          accept="image/*"
+          ref={fileInput}
+          onChange={handleFileChange}
+        />
         <Button as="input" type="submit" value="Update Profile" />
       </form>
+      {attachment && (
+        <div>
+          <img src={attachment} width="50px" height="50px" />
+          <Button onClick={handleClearAttachment}>Clear</Button>
+        </div>
+      )}
     </FlexBox>
   );
 }
