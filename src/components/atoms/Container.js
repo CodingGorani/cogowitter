@@ -50,6 +50,7 @@ export const FlexBox = styled.div`
       padding: 1em 2em;
       align-self: center;
       width: 50%;
+      height: fit-content;
       max-width: 650px;
       min-width: 300px;
       flex-direction: ${props.direction || 'row'};

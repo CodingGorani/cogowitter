@@ -43,6 +43,9 @@ function ProfileForm({ refreshUser, userObj }) {
     e.preventDefault();
     if (userObj.displayName !== newDisplayName || attachment) {
       try {
+        console.group('유저확인');
+        console.log('현재유저', auth.currentUser);
+        console.groupEnd();
         await updateProfile(auth.currentUser, {
           displayName: newDisplayName,
           photoURL: attachment,
