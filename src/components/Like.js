@@ -6,6 +6,7 @@ import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { doc, updateDoc } from '@firebase/firestore';
 import { cogowitCollection } from 'fbInstance';
 import { Button } from './atoms/Button';
+import { FlexBox } from './atoms/Container';
 
 function Like({ userObj, cogowitObj }) {
   const [like, setLike] = useState(cogowitObj.like);
@@ -46,16 +47,21 @@ function Like({ userObj, cogowitObj }) {
   };
 
   return (
-    <div>
-      <Span>좋아요 {like || 0}개 </Span>
-      <Button type="button" onClick={handleLikeClick} value={youLike}>
+    <FlexBox right>
+      <Button
+        margin="0.5em 1em"
+        type="button"
+        onClick={handleLikeClick}
+        value={youLike}
+      >
         {youLike ? (
           <FontAwesomeIcon icon={fasHeart} />
         ) : (
           <FontAwesomeIcon icon={farHeart} />
         )}
       </Button>
-    </div>
+      <Span lineHeight="3em">좋아요 {like || 0}개 </Span>
+    </FlexBox>
   );
 }
 

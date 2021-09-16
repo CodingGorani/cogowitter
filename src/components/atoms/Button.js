@@ -6,7 +6,7 @@ export const Button = styled.button`
   border-radius: 1em;
   border-style: none;
   color: black;
-  margin: 0.5em 3em;
+  margin: ${(props) => props.margin || '0.5em 3em'};
   padding: 0.5em 1em;
   box-shadow: ${theme.shadow};
   height: 2.5em;

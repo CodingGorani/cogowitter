@@ -5,6 +5,7 @@ export const Span = styled.span`
   text-align: ${(props) => props.align || 'center'};
   margin: ${(props) => props.margin || '0'};
   font-size: ${(props) => props.fontSize || '1em'};
+  line-height: ${(props) => props.lineHeight || '1em'};
 
   ${(props) =>
     props.nameTag &&
