@@ -36,24 +36,31 @@ function CommentsForm({ userObj, cogowitObj }) {
   };
 
   return (
-    <Container wrapper as="form" onSubmit={handleCommentSubmit}>
+    <FlexBox
+      direction="row"
+      wrapper
+      margin="1em 0"
+      as="form"
+      onSubmit={handleCommentSubmit}
+    >
       <Input
         withButton
+        borderRadius="1em 0 0 1em"
         type="text"
         value={comment}
         onChange={handleCommentChange}
         placeholder="댓글을 입력하세요"
       />
       <Button
-        relative
-        top="4px"
-        left="-40px"
+        primary
         noShadow
+        margin="0"
+        borderRadius="0 1em 1em 0"
         as="input"
         type="submit"
         value="게시"
       />
-    </Container>
+    </FlexBox>
   );
 }
 

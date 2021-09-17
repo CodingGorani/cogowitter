@@ -6,7 +6,7 @@ function Comment({ commentObj }) {
   const { text, creator, createdAt } = commentObj;
   const date = createdAt.toDate().toString().split(' ', 5).join(' ');
   return (
-    <FlexBox styled>
+    <FlexBox margin="0.3em 0" styled>
       <FlexBox right>
         <Span fontSize="x-small" margin="0 0.5em">
           {date}

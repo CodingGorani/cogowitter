@@ -1,15 +1,15 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { theme } from './Theme';
 
 export const Button = styled.button`
+  box-sizing: border-box;
   background: transparent;
-  border-radius: 1em;
+  border-radius: ${(props) => props.borderRadius || '1em'};
   border-style: none;
-  color: black;
+  color: ${(props) => props.color || 'black'};
   margin: ${(props) => props.margin || '0.5em 3em'};
-  padding: 0.5em 1em;
+  padding: ${(props) => props.padding || '0.5em 1em'};
   box-shadow: ${theme.shadow};
-  height: 2.5em;
 
   &:hover {
     transition: all 0.3s ease;

@@ -24,6 +24,8 @@ export const FlexBox = styled.div`
     props.wrapper &&
     css`
       flex-direction: ${props.direction || 'column'};
+      margin: ${(props) => props.margin || '0'};
+      padding: ${(props) => props.padding || '0'};
       width: 100%;
     `}
 
@@ -34,8 +36,8 @@ export const FlexBox = styled.div`
       border-width: 0px;
       box-shadow: ${theme.shadow};
       border-radius: 1em;
-      margin: 0.5em;
-      padding: 1em 2em;
+      margin: ${(props) => props.margin || '0.5em'};
+      padding: ${(props) => props.padding || '1em 2em'};
       flex-direction: ${props.direction || 'column'};
     `}
 
@@ -46,8 +48,8 @@ export const FlexBox = styled.div`
       border-width: 0px;
       box-shadow: ${theme.shadow};
       border-radius: 1em;
-      margin: 0.5em;
-      padding: 1em 2em;
+      margin: ${(props) => props.margin || '0.5em'};
+      padding: ${(props) => props.padding || '1em 2em'};
       align-self: center;
       width: 50%;
       height: fit-content;
